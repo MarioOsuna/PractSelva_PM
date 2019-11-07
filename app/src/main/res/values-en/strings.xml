@@ -2,4 +2,14 @@
 <resources>
     <string name="app_name">PractSelva</string>
     <string name="crear">Create Animals</string>
+    <string name="aguila">Eagle</string>
+    <string name="elefante">Elephant</string>
+    <string name="leon">Lion</string>
+    <string name="oso">Bear</string>
+    <string name="tigre">Tiger</string>
+    <string name="foca">Sea Lion</string>
+    <string name="Gato">Cat</string>
+    <string name="chimpance">Chimpanzee</string>
+    <string name="perro">Dog</string>
+    <string name="delfin">Dolphins</string>
 </resources>

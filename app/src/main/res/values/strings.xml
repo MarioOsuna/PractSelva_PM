@@ -1,4 +1,35 @@
 <resources>
     <string name="app_name">PractSelva</string>
     <string name="crear">Crear Animales</string>
+    <string name="leon">León</string>
+    <string name="elefante">Elefante</string>
+    <string name="aguila">Águila</string>
+    <string name="oso">Oso</string>
+    <string name="tigre">Tigre</string>
+    <string name="foca">Foca</string>
+    <string name="Gato">Gato</string>
+    <string name="chimpance">Chimpance</string>
+    <string name="perro">Perro</string>
+    <string name="delfin">Delfín</string>
+    <string-array name="animales">
+        <item>León</item>
+        <item>Elefante</item>
+        <item>Águila</item>
+        <item>Tigre</item>
+        <item>Foca</item>
+        <item>Gato</item>
+        <item>Chimpance</item>
+        <item>Perro</item>
+        <item>Delfín</item>
+        <item>Oso</item>
+    </string-array>
+    <string-array name="segundos">
+        <item>0 seg</item>
+        <item>5 seg</item>
+        <item>10 seg</item>
+        <item>15 seg</item>
+        <item>20 seg</item>
+        <item>25 seg</item>
+        <item>30 seg</item>
+    </string-array>
 </resources>
