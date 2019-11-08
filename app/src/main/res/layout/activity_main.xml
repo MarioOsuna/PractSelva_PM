@@ -22,17 +22,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:foregroundGravity="center"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/buttonCrear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
                 android:text="@string/crear" />
 
         </GridLayout>
