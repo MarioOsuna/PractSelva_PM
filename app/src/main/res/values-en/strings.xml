@@ -12,4 +12,17 @@
     <string name="chimpance">Chimpanzee</string>
     <string name="perro">Dog</string>
     <string name="delfin">Dolphins</string>
+
+    <string-array name="animales">
+        <item>Lion</item>
+        <item>Elephant</item>
+        <item>Eagle</item>
+        <item>Tiger</item>
+        <item>Sea Lion</item>
+        <item>Cat</item>
+        <item>Chimpanzee</item>
+        <item>Dog</item>
+        <item>Dolphins</item>
+        <item>Bear</item>
+    </string-array>
 </resources>

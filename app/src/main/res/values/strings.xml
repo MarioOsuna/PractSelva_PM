@@ -11,6 +11,7 @@
     <string name="chimpance">Chimpance</string>
     <string name="perro">Perro</string>
     <string name="delfin">Delfín</string>
+
     <string-array name="animales">
         <item>León</item>
         <item>Elefante</item>

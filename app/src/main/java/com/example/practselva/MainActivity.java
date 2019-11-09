@@ -116,43 +116,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                                     switch (cadena1) {
                                         case "León":
+                                        case "Lion":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.lion);
 
 
                                             break;
                                         case "Elefante":
+                                        case "Elephant":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.elephant);
 
                                             break;
                                         case "Águila":
+                                        case "Eagle":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.eagle);
 
                                             break;
                                         case "Tigre":
+                                        case "Tiger":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bengal_tiger);
 
                                             break;
                                         case "Foca":
+                                        case "Sea Lion":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.sea_lion);
 
                                             break;
                                         case "Gato":
+                                        case "Cat":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.domestic_cat);
 
                                             break;
                                         case "Chimpance":
+                                        case "Chimpanzee":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.chimp);
 
                                             break;
                                         case "Perro":
+                                        case "Dog":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dogbark);
 
                                             break;
                                         case "Delfín":
+                                        case "Dolphins":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dolphin);
 
                                             break;
                                         case "Oso":
+                                        case "Bear":
                                             mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bear);
                                             break;
                                     }
@@ -176,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                         };
 
 
-
                                         hilo.start();
                                     }
 
@@ -192,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                     spinnerAnimal[finalI].setEnabled(false);
                                     spinnerTiempo[finalI].setEnabled(false);
                                     buttonPlay[finalI].setEnabled(false);*/
+
 
                                     spinnerAnimal[finalI].setVisibility(View.GONE);
                                     spinnerTiempo[finalI].setVisibility(View.GONE);
