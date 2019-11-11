@@ -16,7 +16,7 @@ import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener/*, AdapterView.OnItemClickListener */ {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     GridLayout g;
     Button buttonCrear;
     EditText editText;
@@ -247,8 +247,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    /*@Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-    }*/
 }
