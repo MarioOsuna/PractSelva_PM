@@ -4,6 +4,7 @@ package com.example.practselva;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText editText;
 
     Thread hilo = null;
-    // MiCronometro crono = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                             hilo.start();
                                         }
 
-
+                                        //runThread(mediaPlayer[finalI], finalNum, finalI, editTextTiempo[finalI]);
                                    /* spinnerAnimal[finalI].setEnabled(false);
                                     editTextTiempo[finalI].setEnabled(false);
                                     buttonPlay[finalI].setEnabled(false);*/
@@ -234,39 +235,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    /*clase mi cronómetro
 
-    public class MiCronometro extends AsyncTask<String,String,String> {
 
-        int contador=0;
+   /* private void runThread(final MediaPlayer mediaPlayer, final int Num, final int i, final EditText editTextTiempo) {
+        runOnUiThread(new Thread(new Runnable() {
+            public void run() {
 
-        @Override
-        protected void onProgressUpdate(String... values) {
-            editTextTiempo[finalI1].setText(values[0]);
-        }
 
-        @Override
-        protected String doInBackground(String... strings) {
-            int contador=0;
+                try {
+                    Thread.sleep(Num);
 
-            while(true){
 
-                while(activo[0]){
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    contador++;
-                    int segundos=contador%60;
-                    int minutos=contador/60;
-                    String texto= minutos+":"+segundos;
-                    publishProgress(texto);
+                    mediaPlayer.start();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }
-        }
-    }
 
-    fin clase*/
+               /* int contador=Num;
+                while(contador>0){
+                    editTextTiempo.setText(contador);
+                    contador--;
+                }*//*
+
+            }
+        }));
+    }*/
+
 
 }
