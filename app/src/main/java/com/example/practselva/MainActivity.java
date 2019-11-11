@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     GridLayout g;
@@ -45,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                     int n = Integer.parseInt(String.valueOf(editText.getText()));
 
-                    final boolean[] activo = {false};
 
                     final int[] Flag = {n};
 
@@ -72,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                             editTextTiempo[i] = new EditText(MainActivity.this);
                             editTextTiempo[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            editTextTiempo[i].setText("0");
+                            //editTextTiempo[i].setText("0");
+                            editTextTiempo[i].setHint("0 sec.");
                             editTextTiempo[i].setInputType(InputType.TYPE_CLASS_NUMBER);
                             editTextTiempo[i].setId(View.generateViewId());
 
@@ -93,112 +96,105 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 @Override
                                 public void onClick(View v) {
                                     Flag[0]--;
-                                    activo[0] = true;
+                                    if (!editTextTiempo[finalI].getText().toString().isEmpty()) {
 
-                                    String cadena1 = String.valueOf(spinnerAnimal[finalI].getSelectedItem());
+                                        String cadena1 = String.valueOf(spinnerAnimal[finalI].getSelectedItem());
 
-                                    String cadena2 = String.valueOf(editTextTiempo[finalI].getText());
+                                        String cadena2 = String.valueOf(editTextTiempo[finalI].getText());
 
-                                    int num = Integer.parseInt(cadena2) * 1000;
+                                        int num = Integer.parseInt(cadena2) * 1000;
 
-                                    if (num > 30000) {
-                                        Toast.makeText(MainActivity.this, "Introduzca 30 segundos o menos", Toast.LENGTH_SHORT).show();
+                                        if (num > 30000) {
+                                            Toast.makeText(MainActivity.this, "Introduzca 30 segundos o menos", Toast.LENGTH_SHORT).show();
 
-                                    } else {
-
-
-                                        switch (cadena1) {
-                                            case "León":
-                                            case "Lion":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.lion);
+                                        } else {
 
 
-                                                break;
-                                            case "Elefante":
-                                            case "Elephant":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.elephant);
-
-                                                break;
-                                            case "Águila":
-                                            case "Eagle":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.eagle);
-
-                                                break;
-                                            case "Tigre":
-                                            case "Tiger":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bengal_tiger);
-
-                                                break;
-                                            case "Foca":
-                                            case "Sea Lion":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.sea_lion);
-
-                                                break;
-                                            case "Gato":
-                                            case "Cat":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.domestic_cat);
-
-                                                break;
-                                            case "Chimpance":
-                                            case "Chimpanzee":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.chimp);
-
-                                                break;
-                                            case "Perro":
-                                            case "Dog":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dogbark);
-
-                                                break;
-                                            case "Delfín":
-                                            case "Dolphins":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dolphin);
-
-                                                break;
-                                            case "Oso":
-                                            case "Bear":
-                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bear);
-                                                break;
-                                        }
-                                        final int finalNum = num;
-                                        if (hilo == null) {
+                                            switch (cadena1) {
+                                                case "León":
+                                                case "Lion":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.lion);
 
 
-                                            hilo = new Thread() {
+                                                    break;
+                                                case "Elefante":
+                                                case "Elephant":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.elephant);
 
-                                                @Override
-                                                public void run() {
-                                                    try {
+                                                    break;
+                                                case "Águila":
+                                                case "Eagle":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.eagle);
 
-                                                        Thread.sleep(finalNum);
+                                                    break;
+                                                case "Tigre":
+                                                case "Tiger":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bengal_tiger);
 
-                                                        mediaPlayer[finalI].start();
+                                                    break;
+                                                case "Foca":
+                                                case "Sea Lion":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.sea_lion);
 
-                                                        hilo = null;
+                                                    break;
+                                                case "Gato":
+                                                case "Cat":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.domestic_cat);
 
-                                                    } catch (InterruptedException e) {
-                                                        e.printStackTrace();
+                                                    break;
+                                                case "Chimpance":
+                                                case "Chimpanzee":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.chimp);
+
+                                                    break;
+                                                case "Perro":
+                                                case "Dog":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dogbark);
+
+                                                    break;
+                                                case "Delfín":
+                                                case "Dolphins":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dolphin);
+
+                                                    break;
+                                                case "Oso":
+                                                case "Bear":
+                                                    mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bear);
+                                                    break;
+                                            }
+                                            final int finalNum = num;
+                                            if (hilo == null) {
+
+
+                                                hilo = new Thread() {
+
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+
+                                                            Thread.sleep(finalNum);
+
+                                                            mediaPlayer[finalI].start();
+
+                                                            hilo = null;
+
+                                                        } catch (InterruptedException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
-                                                }
-                                            };
+                                                };
+
+                                                updateUI(editTextTiempo[finalI], finalI, spinnerAnimal[finalI], buttonPlay[finalI], Flag[0]);
+
+                                                hilo.start();
+                                            }
 
 
-                                            hilo.start();
                                         }
+                                    }
+                                    else{
+                                        Toast.makeText(MainActivity.this, "Debe introducir de 0 a 30 segundos", Toast.LENGTH_SHORT).show();
 
-                                        //runThread(mediaPlayer[finalI], finalNum, finalI, editTextTiempo[finalI]);
-                                   /* spinnerAnimal[finalI].setEnabled(false);
-                                    editTextTiempo[finalI].setEnabled(false);
-                                    buttonPlay[finalI].setEnabled(false);*/
-
-
-                                        spinnerAnimal[finalI].setVisibility(View.GONE);
-                                        editTextTiempo[finalI].setVisibility(View.GONE);
-                                        buttonPlay[finalI].setVisibility(View.GONE);
-
-                                        if (Flag[0] == 0) {
-                                            editText.setEnabled(true);
-                                            buttonCrear.setEnabled(true);
-                                        }
                                     }
 
                                 }
@@ -237,29 +233,41 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-   /* private void runThread(final MediaPlayer mediaPlayer, final int Num, final int i, final EditText editTextTiempo) {
-        runOnUiThread(new Thread(new Runnable() {
+    private void updateUI(final EditText editTextTiempo, final int i, final Spinner spinnerAnimal, final Button buttonPlay, final int Flag) {
+
+        runOnUiThread(new Runnable() {
+            @Override
             public void run() {
 
+                int cambiar;
+                spinnerAnimal.setEnabled(false);
+                editTextTiempo.setEnabled(false);
+                buttonPlay.setEnabled(false);
 
-                try {
-                    Thread.sleep(Num);
+                cambiar = Integer.parseInt(editTextTiempo.getText().toString()) * 1000;
 
+                CountDownTimer countDownTimer = new CountDownTimer(cambiar, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        editTextTiempo.setText(String.format(Locale.getDefault(), "%d sec.", millisUntilFinished / 1000L));
+                    }
 
-                    mediaPlayer.start();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    public void onFinish() {
+                        spinnerAnimal.setVisibility(View.GONE);
+                        editTextTiempo.setVisibility(View.GONE);
+                        buttonPlay.setVisibility(View.GONE);
 
-               /* int contador=Num;
-                while(contador>0){
-                    editTextTiempo.setText(contador);
-                    contador--;
-                }*//*
+                        if (Flag == 0) {
+                            editText.setEnabled(true);
+                            buttonCrear.setEnabled(true);
+                        }
+                    }
+                }.start();
+
 
             }
-        }));
-    }*/
+
+        });
+    }
 
 
 }
