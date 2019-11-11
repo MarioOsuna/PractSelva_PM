@@ -1,11 +1,11 @@
 package com.example.practselva;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,13 +14,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     GridLayout g;
     Button buttonCrear;
     EditText editText;
+
     Thread hilo = null;
+    // MiCronometro crono = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         g = findViewById(R.id.GridLayout);
         buttonCrear = findViewById(R.id.buttonCrear);
         editText = findViewById(R.id.editTextNum);
-
 
         buttonCrear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,19 +44,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                     int n = Integer.parseInt(String.valueOf(editText.getText()));
 
+                    final boolean[] activo = {false};
+
                     final int[] Flag = {n};
+
                     if (n >= 1 && n <= 10) {
                         final Spinner spinnerAnimal[] = new Spinner[n];
-                        final Spinner spinnerTiempo[] = new Spinner[n];
+                        final EditText editTextTiempo[] = new EditText[n];
                         final Button buttonPlay[] = new Button[n];
                         final MediaPlayer[] mediaPlayer = new MediaPlayer[n];
 
 
                         final ArrayAdapter<CharSequence> adapterAnimales = ArrayAdapter.createFromResource(MainActivity.this, R.array.animales, android.R.layout.simple_spinner_item);
                         adapterAnimales.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        ArrayAdapter<CharSequence> adapterTiempo = ArrayAdapter.createFromResource(MainActivity.this, R.array.segundos, android.R.layout.simple_spinner_item);
-                        adapterTiempo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         for (int i = 0; i < n; i++) {
 
@@ -67,11 +69,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             g.addView(spinnerAnimal[i]);
 
 
-                            spinnerTiempo[i] = new Spinner(MainActivity.this);
-                            spinnerTiempo[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            spinnerTiempo[i].setAdapter(adapterTiempo);
-                            spinnerTiempo[i].setId(View.generateViewId());
-                            g.addView(spinnerTiempo[i]);
+                            editTextTiempo[i] = new EditText(MainActivity.this);
+                            editTextTiempo[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                            editTextTiempo[i].setText("0");
+                            editTextTiempo[i].setInputType(InputType.TYPE_CLASS_NUMBER);
+                            editTextTiempo[i].setId(View.generateViewId());
+
+                            g.addView(editTextTiempo[i]);
+
 
                             buttonPlay[i] = new Button(MainActivity.this);
                             buttonPlay[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -82,134 +87,117 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                             final int finalI = i;
 
+
                             buttonPlay[i].setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Flag[0]--;
+                                    activo[0] = true;
 
                                     String cadena1 = String.valueOf(spinnerAnimal[finalI].getSelectedItem());
-                                    String cadena2 = String.valueOf(spinnerTiempo[finalI].getSelectedItem());
-                                    int num = 0;
-                                    switch (cadena2) {
-                                        case "0 seg":
-                                            num = 0;
-                                            break;
-                                        case "5 seg":
-                                            num = 5000;
-                                            break;
-                                        case "10 seg":
-                                            num = 10000;
-                                            break;
-                                        case "15 seg":
-                                            num = 15000;
-                                            break;
-                                        case "20 seg":
-                                            num = 20000;
-                                            break;
-                                        case "25 seg":
-                                            num = 25000;
-                                            break;
-                                        case "30 seg":
-                                            num = 30000;
-                                            break;
-                                    }
 
-                                    switch (cadena1) {
-                                        case "León":
-                                        case "Lion":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.lion);
+                                    String cadena2 = String.valueOf(editTextTiempo[finalI].getText());
+
+                                    int num = Integer.parseInt(cadena2) * 1000;
+
+                                    if (num > 30000) {
+                                        Toast.makeText(MainActivity.this, "Introduzca 30 segundos o menos", Toast.LENGTH_SHORT).show();
+
+                                    } else {
 
 
-                                            break;
-                                        case "Elefante":
-                                        case "Elephant":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.elephant);
+                                        switch (cadena1) {
+                                            case "León":
+                                            case "Lion":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.lion);
 
-                                            break;
-                                        case "Águila":
-                                        case "Eagle":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.eagle);
 
-                                            break;
-                                        case "Tigre":
-                                        case "Tiger":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bengal_tiger);
+                                                break;
+                                            case "Elefante":
+                                            case "Elephant":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.elephant);
 
-                                            break;
-                                        case "Foca":
-                                        case "Sea Lion":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.sea_lion);
+                                                break;
+                                            case "Águila":
+                                            case "Eagle":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.eagle);
 
-                                            break;
-                                        case "Gato":
-                                        case "Cat":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.domestic_cat);
+                                                break;
+                                            case "Tigre":
+                                            case "Tiger":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bengal_tiger);
 
-                                            break;
-                                        case "Chimpance":
-                                        case "Chimpanzee":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.chimp);
+                                                break;
+                                            case "Foca":
+                                            case "Sea Lion":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.sea_lion);
 
-                                            break;
-                                        case "Perro":
-                                        case "Dog":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dogbark);
+                                                break;
+                                            case "Gato":
+                                            case "Cat":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.domestic_cat);
 
-                                            break;
-                                        case "Delfín":
-                                        case "Dolphins":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dolphin);
+                                                break;
+                                            case "Chimpance":
+                                            case "Chimpanzee":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.chimp);
 
-                                            break;
-                                        case "Oso":
-                                        case "Bear":
-                                            mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bear);
-                                            break;
-                                    }
-                                    if (hilo == null) {
+                                                break;
+                                            case "Perro":
+                                            case "Dog":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dogbark);
+
+                                                break;
+                                            case "Delfín":
+                                            case "Dolphins":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.dolphin);
+
+                                                break;
+                                            case "Oso":
+                                            case "Bear":
+                                                mediaPlayer[finalI] = MediaPlayer.create(MainActivity.this, R.raw.bear);
+                                                break;
+                                        }
                                         final int finalNum = num;
-                                        hilo = new Thread() {
-
-                                            @Override
-                                            public void run() {
-                                                try {
-                                                    sleep(finalNum);
-                                                    mediaPlayer[finalI].start();
+                                        if (hilo == null) {
 
 
-                                                    hilo = null;
+                                            hilo = new Thread() {
 
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
+                                                @Override
+                                                public void run() {
+                                                    try {
+
+                                                        Thread.sleep(finalNum);
+
+                                                        mediaPlayer[finalI].start();
+
+                                                        hilo = null;
+
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
-                                            }
-                                        };
+                                            };
 
 
-                                        hilo.start();
-                                    }
-
-                                    /*try {
-                                        Thread.sleep(num);
-                                        mediaPlayer[finalI].start();
+                                            hilo.start();
+                                        }
 
 
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }*
-
-                                    spinnerAnimal[finalI].setEnabled(false);
-                                    spinnerTiempo[finalI].setEnabled(false);
+                                   /* spinnerAnimal[finalI].setEnabled(false);
+                                    editTextTiempo[finalI].setEnabled(false);
                                     buttonPlay[finalI].setEnabled(false);*/
 
 
-                                    spinnerAnimal[finalI].setVisibility(View.GONE);
-                                    spinnerTiempo[finalI].setVisibility(View.GONE);
-                                    buttonPlay[finalI].setVisibility(View.GONE);
+                                        spinnerAnimal[finalI].setVisibility(View.GONE);
+                                        editTextTiempo[finalI].setVisibility(View.GONE);
+                                        buttonPlay[finalI].setVisibility(View.GONE);
 
-                                    if (Flag[0] == 0) {
-                                        editText.setEnabled(true);
-                                        buttonCrear.setEnabled(true);
+                                        if (Flag[0] == 0) {
+                                            editText.setEnabled(true);
+                                            buttonCrear.setEnabled(true);
+                                        }
                                     }
 
                                 }
@@ -228,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
 
+
             }
         });
 
@@ -245,7 +234,39 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    /*clase mi cronómetro
 
+    public class MiCronometro extends AsyncTask<String,String,String> {
 
+        int contador=0;
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            editTextTiempo[finalI1].setText(values[0]);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            int contador=0;
+
+            while(true){
+
+                while(activo[0]){
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    contador++;
+                    int segundos=contador%60;
+                    int minutos=contador/60;
+                    String texto= minutos+":"+segundos;
+                    publishProgress(texto);
+                }
+            }
+        }
+    }
+
+    fin clase*/
 
 }
